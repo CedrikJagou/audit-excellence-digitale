@@ -1,4 +1,4 @@
-name: Deploy Vite site
+name: Deploy Vite to GitHub Pages
 
 on:
   push:
@@ -9,10 +9,6 @@ permissions:
   contents: read
   pages: write
   id-token: write
-
-concurrency:
-  group: pages
-  cancel-in-progress: true
 
 jobs:
   build:
@@ -34,13 +30,12 @@ jobs:
           path: ./dist
 
   deploy:
-    needs: build
-
     environment:
       name: github-pages
+
+    needs: build
 
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/deploy-pages@v4
-`
